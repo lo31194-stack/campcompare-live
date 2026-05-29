@@ -4,6 +4,7 @@ export default function App() {
   const [county, setCounty] = useState("All");
   const [maxPrice, setMaxPrice] = useState(60);
   const [maxSea, setMaxSea] = useState(20);
+  const [facility, setFacility] = useState("All");
 
   const campsites = [
     {
@@ -13,7 +14,8 @@ export default function App() {
       seaDistance: 0.3,
       shopDistance: 1.5,
       image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4",
-      attractions: ["Land's End", "Minack Theatre", "Sennen Cove"]
+      attractions: ["Land's End", "Minack Theatre", "Sennen Cove"],
+      facilities: ["Dog Friendly", "Showers", "Electric Hookup"]
     },
     {
       name: "Henry's Campsite",
@@ -22,7 +24,8 @@ export default function App() {
       seaDistance: 1.2,
       shopDistance: 2,
       image: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7",
-      attractions: ["St Ives", "Tate St Ives", "Carbis Bay"]
+      attractions: ["St Ives", "Tate St Ives", "Carbis Bay"],
+      facilities: ["Dog Friendly", "Campfires Allowed"]
     },
     {
       name: "Cofton Holidays",
@@ -31,7 +34,8 @@ export default function App() {
       seaDistance: 0.8,
       shopDistance: 1.2,
       image: "https://images.unsplash.com/photo-1504851149312-7a075b496cc7",
-      attractions: ["Dawlish Warren", "Powderham Castle", "Exmouth Beach"]
+      attractions: ["Dawlish Warren", "Powderham Castle", "Exmouth Beach"],
+      facilities: ["Swimming Pool", "Showers", "Electric Hookup"]
     }
   ];
 
@@ -39,7 +43,8 @@ export default function App() {
     (site) =>
       (county === "All" || site.county === county) &&
       site.price <= maxPrice &&
-      site.seaDistance <= maxSea
+      site.seaDistance <= maxSea &&
+      (facility === "All" || site.facilities.includes(facility))
   );
 
   return (
@@ -83,6 +88,15 @@ export default function App() {
             onChange={(e) => setMaxSea(Number(e.target.value))}
           />
         </label>
+
+        <select value={facility} onChange={(e) => setFacility(e.target.value)}>
+          <option>All</option>
+          <option>Dog Friendly</option>
+          <option>Showers</option>
+          <option>Electric Hookup</option>
+          <option>Campfires Allowed</option>
+          <option>Swimming Pool</option>
+        </select>
       </div>
 
       <h2>{filtered.length} campsites found</h2>
@@ -101,6 +115,7 @@ export default function App() {
             <p>💷 £{site.price} per night</p>
             <p>🌊 {site.seaDistance} miles to sea</p>
             <p>🛒 {site.shopDistance} miles to shop</p>
+            <p>✅ {site.facilities.join(", ")}</p>
 
             <h4>🎢 Days out within 30 miles</h4>
             {site.attractions.map((place) => (
