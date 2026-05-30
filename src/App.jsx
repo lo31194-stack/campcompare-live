@@ -1,4 +1,4 @@
- import { useState } from "react";
+import { useState } from "react";
 
 export default function App() {
   const [county, setCounty] = useState("All");
@@ -8,6 +8,7 @@ export default function App() {
   const [sortBy, setSortBy] = useState("Recommended");
   const [ownerMode, setOwnerMode] = useState(false);
   const [favourites, setFavourites] = useState([]);
+const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
 
   const campsites = [
     {
@@ -71,7 +72,8 @@ export default function App() {
         (county === "All" || site.county === county) &&
         site.price <= maxPrice &&
         site.seaDistance <= maxSea &&
-        (facility === "All" || site.facilities.includes(facility))
+        (facility === "All" || site.facilities.includes(facility)) &&
+        (!showFavouritesOnly || favourites.includes(site.name))
     )
     .sort((a, b) => {
       if (sortBy === "Lowest Price") return a.price - b.price;
@@ -85,6 +87,18 @@ export default function App() {
       <h1>🏕️ CampCompare UK</h1>
       <p>Compare UK campsites by price, beach distance, shops, facilities and reviews.</p>
       <p>❤️ {favourites.length} favourite campsite(s) saved</p>
+<button
+  onClick={() => setShowFavouritesOnly(!showFavouritesOnly)}
+  style={{
+    padding: "10px 16px",
+    borderRadius: 8,
+    border: "1px solid #ddd",
+    marginBottom: 20,
+    cursor: "pointer"
+  }}
+>
+  {showFavouritesOnly ? "Show All Campsites" : "View Favourites Only"}
+</button>
 
       <button
         onClick={() => setOwnerMode(!ownerMode)}
