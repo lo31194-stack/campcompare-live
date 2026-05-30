@@ -5,7 +5,7 @@ export default function App() {
   const [maxPrice, setMaxPrice] = useState(60);
   const [maxSea, setMaxSea] = useState(20);
   const [facility, setFacility] = useState("All");
-
+const [sortBy, setSortBy] = useState("Recommended");
   const campsites = [
     {
       name: "Trevedra Farm",
@@ -53,15 +53,22 @@ export default function App() {
       ]
     }
   ];
-
-  const filtered = campsites.filter(
+const filtered = campsites
+  .filter(
     (site) =>
       (county === "All" || site.county === county) &&
       site.price <= maxPrice &&
       site.seaDistance <= maxSea &&
       (facility === "All" || site.facilities.includes(facility))
-  );
+  )
+  .sort((a, b) => {
+    if (sortBy === "Lowest Price") return a.price - b.price;
+    if (sortBy === "Highest Rating") return b.rating - a.rating;
+    if (sortBy === "Closest to Sea") return a.seaDistance - b.seaDistance;
+    return 0;
+  });
 
+  
   return (
     <div style={{ padding: 20, fontFamily: "Arial", maxWidth: 1100, margin: "0 auto" }}>
       <h1>🏕️ CampCompare UK</h1>
@@ -113,7 +120,12 @@ export default function App() {
           <option>Swimming Pool</option>
         </select>
       </div>
-
+<select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+  <option>Recommended</option>
+  <option>Lowest Price</option>
+  <option>Highest Rating</option>
+  <option>Closest to Sea</option>
+</select>
       <h2>{filtered.length} campsites found</h2>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
