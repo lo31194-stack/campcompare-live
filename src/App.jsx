@@ -9,6 +9,7 @@ export default function App() {
   const [ownerMode, setOwnerMode] = useState(false);
   const [favourites, setFavourites] = useState([]);
 const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
+const [recentlyViewed, setRecentlyViewed] = useState([]);
 
   const campsites = [
     {
@@ -81,6 +82,10 @@ const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
       if (sortBy === "Closest to Sea") return a.seaDistance - b.seaDistance;
       return 0;
     });
+    function markAsViewed(siteName) {
+  const updated = [siteName, ...recentlyViewed.filter((name) => name !== siteName)];
+  setRecentlyViewed(updated.slice(0, 3));
+}
 
   return (
     <div style={{ padding: 20, fontFamily: "Arial", maxWidth: 1100, margin: "0 auto" }}>
@@ -96,9 +101,18 @@ const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
     marginBottom: 20,
     cursor: "pointer"
   }}
+  
 >
   {showFavouritesOnly ? "Show All Campsites" : "View Favourites Only"}
 </button>
+{recentlyViewed.length > 0 && (
+  <div style={{ border: "1px solid #ddd", padding: 15, borderRadius: 12, marginBottom: 20 }}>
+    <h3>👀 Recently Viewed</h3>
+    {recentlyViewed.map((name) => (
+      <p key={name}>🏕️ {name}</p>
+    ))}
+  </div>
+)}
 
       <button
         onClick={() => setOwnerMode(!ownerMode)}
@@ -123,6 +137,19 @@ const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
         </div>
       )}
 
+<button
+  onClick={() => markAsViewed(site.name)}
+  style={{
+    marginTop: 10,
+    marginLeft: 8,
+    padding: "8px 12px",
+    borderRadius: 8,
+    border: "1px solid #ddd",
+    cursor: "pointer"
+  }}
+>
+  👀 Mark as Viewed
+</button>
       <iframe
         title="CampCompare Map"
         width="100%"
