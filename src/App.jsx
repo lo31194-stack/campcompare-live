@@ -15,7 +15,12 @@ export default function App() {
       shopDistance: 1.5,
       image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4",
       attractions: ["Land's End", "Minack Theatre", "Sennen Cove"],
-      facilities: ["Dog Friendly", "Showers", "Electric Hookup"]
+      facilities: ["Dog Friendly", "Showers", "Electric Hookup"],
+      rating: 4.8,
+      reviews: [
+        { name: "Sarah", text: "Fantastic location, really close to the beach." },
+        { name: "David", text: "Clean facilities and a lovely peaceful stay." }
+      ]
     },
     {
       name: "Henry's Campsite",
@@ -25,7 +30,12 @@ export default function App() {
       shopDistance: 2,
       image: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7",
       attractions: ["St Ives", "Tate St Ives", "Carbis Bay"],
-      facilities: ["Dog Friendly", "Campfires Allowed"]
+      facilities: ["Dog Friendly", "Campfires Allowed"],
+      rating: 4.6,
+      reviews: [
+        { name: "Emma", text: "Quirky, friendly and great for a relaxed trip." },
+        { name: "James", text: "Loved the atmosphere and dog-friendly setup." }
+      ]
     },
     {
       name: "Cofton Holidays",
@@ -35,7 +45,12 @@ export default function App() {
       shopDistance: 1.2,
       image: "https://images.unsplash.com/photo-1504851149312-7a075b496cc7",
       attractions: ["Dawlish Warren", "Powderham Castle", "Exmouth Beach"],
-      facilities: ["Swimming Pool", "Showers", "Electric Hookup"]
+      facilities: ["Swimming Pool", "Showers", "Electric Hookup"],
+      rating: 4.7,
+      reviews: [
+        { name: "Kelly", text: "Brilliant for families and lots to do nearby." },
+        { name: "Tom", text: "Great facilities, easy access to beaches and shops." }
+      ]
     }
   ];
 
@@ -50,7 +65,7 @@ export default function App() {
   return (
     <div style={{ padding: 20, fontFamily: "Arial", maxWidth: 1100, margin: "0 auto" }}>
       <h1>🏕️ CampCompare UK</h1>
-      <p>Compare UK campsites by price, beach distance, shops and nearby days out.</p>
+      <p>Compare UK campsites by price, beach distance, shops, facilities and reviews.</p>
 
       <iframe
         title="CampCompare Map"
@@ -111,11 +126,20 @@ export default function App() {
             />
 
             <h3>{site.name}</h3>
+            <p>⭐ {site.rating}/5 rating</p>
             <p>📍 {site.county}</p>
             <p>💷 £{site.price} per night</p>
             <p>🌊 {site.seaDistance} miles to sea</p>
             <p>🛒 {site.shopDistance} miles to shop</p>
             <p>✅ {site.facilities.join(", ")}</p>
+
+            <h4>💬 Reviews</h4>
+            {site.reviews.map((review) => (
+              <div key={review.name} style={{ background: "#f7f7f7", padding: 10, borderRadius: 8, marginBottom: 8 }}>
+                <p>"{review.text}"</p>
+                <strong>- {review.name}</strong>
+              </div>
+            ))}
 
             <h4>🎢 Days out within 30 miles</h4>
             {site.attractions.map((place) => (
