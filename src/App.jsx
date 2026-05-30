@@ -1,3 +1,5 @@
+import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 import { useState } from "react";
 
 export default function App() {
@@ -14,6 +16,8 @@ const [recentlyViewed, setRecentlyViewed] = useState([]);
   const campsites = [
     {
       name: "Trevedra Farm",
+      lat: 50.061,
+lng: -5.69,
       county: "Cornwall",
       price: 28,
       seaDistance: 0.3,
@@ -29,6 +33,8 @@ const [recentlyViewed, setRecentlyViewed] = useState([]);
     },
     {
       name: "Henry's Campsite",
+      lat: 50.238,
+lng: -5.182,
       county: "Cornwall",
       price: 22,
       seaDistance: 1.2,
@@ -44,6 +50,8 @@ const [recentlyViewed, setRecentlyViewed] = useState([]);
     },
     {
       name: "Cofton Holidays",
+      lat: 50.603,
+lng: -3.468,
       county: "Devon",
       price: 40,
       seaDistance: 0.8,
@@ -150,13 +158,38 @@ const [recentlyViewed, setRecentlyViewed] = useState([]);
 >
   👀 Mark as Viewed
 </button>
-      <iframe
-        title="CampCompare Map"
-        width="100%"
-        height="350"
-        style={{ border: 0, borderRadius: 12, marginBottom: 25 }}
-        src="https://www.openstreetmap.org/export/embed.html?bbox=-6.0%2C49.9%2C-3.0%2C51.5&layer=mapnik"
-      />
+      <MapContainer
+  center={[50.4, -4.8]}
+  zoom={8}
+  style={{
+    height: 350,
+    width: "100%",
+    borderRadius: 12,
+    marginBottom: 25
+  }}
+>
+  <TileLayer
+    attribution='&copy; OpenStreetMap contributors'
+    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  />
+
+  {filtered.map((site) => (
+    <CircleMarker
+      key={site.name}
+      center={[site.lat, site.lng]}
+      radius={10}
+    >
+      <Popup>
+        <strong>{site.name}</strong>
+        <br />
+        £{site.price} per night
+        <br />
+        ⭐ {site.rating}/5
+      </Popup>
+    </CircleMarker>
+  ))}
+</MapContainer>
+      /
 
       <div style={{ display: "flex", gap: 15, flexWrap: "wrap", marginBottom: 25 }}>
         <select value={county} onChange={(e) => setCounty(e.target.value)}>
