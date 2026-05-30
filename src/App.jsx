@@ -15,6 +15,11 @@ export default function App() {
 });
 const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
 const [recentlyViewed, setRecentlyViewed] = useState(() => {
+  const [newSite, setNewSite] = useState({
+  name: "",
+  county: "",
+  price: "",
+});
   const saved = localStorage.getItem("campcompare-recently-viewed");
   return saved ? JSON.parse(saved) : [];
 });
@@ -148,8 +153,43 @@ lng: -3.468,
       {ownerMode && (
         <div style={{ border: "1px solid #ddd", padding: 20, borderRadius: 12, marginBottom: 25 }}>
           <h2>👤 Owner Dashboard</h2>
-          <p>This is where campsite owners will be able to claim listings, upload photos and update prices.</p>
-          <button>Claim My Listing</button>
+
+<input
+  type="text"
+  placeholder="Campsite Name"
+  value={newSite.name}
+  onChange={(e) =>
+    setNewSite({ ...newSite, name: e.target.value })
+  }
+/>
+
+<br /><br />
+
+<input
+  type="text"
+  placeholder="County"
+  value={newSite.county}
+  onChange={(e) =>
+    setNewSite({ ...newSite, county: e.target.value })
+  }
+/>
+
+<br /><br />
+
+<input
+  type="number"
+  placeholder="Price Per Night"
+  value={newSite.price}
+  onChange={(e) =>
+    setNewSite({ ...newSite, price: e.target.value })
+  }
+/>
+
+<br /><br />
+
+<button>
+  Submit Listing
+</button>
         </div>
       )}
 
