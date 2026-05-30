@@ -6,7 +6,8 @@ export default function App() {
   const [maxSea, setMaxSea] = useState(20);
   const [facility, setFacility] = useState("All");
 const [sortBy, setSortBy] = useState("Recommended");
-  const campsites = [
+const [ownerMode, setOwnerMode] = useState(false);
+const campsites = [
     {
       name: "Trevedra Farm",
       county: "Cornwall",
@@ -73,7 +74,28 @@ const filtered = campsites
     <div style={{ padding: 20, fontFamily: "Arial", maxWidth: 1100, margin: "0 auto" }}>
       <h1>🏕️ CampCompare UK</h1>
       <p>Compare UK campsites by price, beach distance, shops, facilities and reviews.</p>
+<button
+  onClick={() => setOwnerMode(!ownerMode)}
+  style={{
+    padding: "10px 16px",
+    borderRadius: 8,
+    border: "none",
+    background: "#2e8b57",
+    color: "white",
+    marginBottom: 20,
+    cursor: "pointer"
+  }}
+>
+  {ownerMode ? "Back to Campsites" : "Owner Dashboard"}
+</button>
 
+{ownerMode && (
+  <div style={{ border: "1px solid #ddd", padding: 20, borderRadius: 12, marginBottom: 25 }}>
+    <h2>👤 Owner Dashboard</h2>
+    <p>This is where campsite owners will be able to claim listings, upload photos and update prices.</p>
+    <button>Claim My Listing</button>
+  </div>
+)}
       <iframe
         title="CampCompare Map"
         width="100%"
