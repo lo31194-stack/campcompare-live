@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function App() {
   const [county, setCounty] = useState("All");
@@ -9,10 +9,18 @@ export default function App() {
   const [facility, setFacility] = useState("All");
   const [sortBy, setSortBy] = useState("Recommended");
   const [ownerMode, setOwnerMode] = useState(false);
-  const [favourites, setFavourites] = useState([]);
+ const [favourites, setFavourites] = useState(() => {
+  const saved = localStorage.getItem("campcompare-favourites");
+  return saved ? JSON.parse(saved) : [];
+});
 const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
-const [recentlyViewed, setRecentlyViewed] = useState([]);
-
+const [recentlyViewed, setRecentlyViewed] = useState(() => {
+  const saved = localStorage.getItem("campcompare-recently-viewed");
+  return saved ? JSON.parse(saved) : [];
+});
+useEffect(() => {
+  localStorage.setItem("campcompare-favourites", JSON.stringify(favourites));
+}, [favourites]);
   const campsites = [
     {
       name: "Trevedra Farm",
