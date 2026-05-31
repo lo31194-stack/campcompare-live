@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function App() {
   const [county, setCounty] = useState("All");
-const [maxPrice, setMaxPrice] = useState(60);
+  const [maxPrice, setMaxPrice] = useState(60);
 
   const campsites = [
     {
@@ -25,34 +25,39 @@ const [maxPrice, setMaxPrice] = useState(60);
     }
   ];
 
- const filtered = campsites.filter(
-  (site) =>
-    (county === "All" || site.county === county) &&
-    site.price <= maxPrice
-    <label style={{ marginLeft: 20 }}>
-  Max Price: £{maxPrice}
-  <input
-    type="range"
-    min="10"
-    max="60"
-    value={maxPrice}
-    onChange={(e) => setMaxPrice(Number(e.target.value))}
-  />
-</label>
-);
+  const filtered = campsites.filter(
+    (site) =>
+      (county === "All" || site.county === county) &&
+      site.price <= maxPrice
+  );
 
   return (
     <div style={{ padding: 30, fontFamily: "Arial", maxWidth: 1100, margin: "0 auto" }}>
       <h1>🏕️ CampCompare UK</h1>
-      <p>Compare UK campsites with photos.</p>
+      <p>Compare UK campsites with photos and price filters.</p>
 
-      <select value={county} onChange={(e) => setCounty(e.target.value)}>
-        <option>All</option>
-        <option>Cornwall</option>
-        <option>Devon</option>
-      </select>
+      <div style={{ marginBottom: 25 }}>
+        <select value={county} onChange={(e) => setCounty(e.target.value)}>
+          <option>All</option>
+          <option>Cornwall</option>
+          <option>Devon</option>
+        </select>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginTop: 25 }}>
+        <label style={{ marginLeft: 20 }}>
+          Max Price: £{maxPrice}
+          <input
+            type="range"
+            min="10"
+            max="60"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(Number(e.target.value))}
+          />
+        </label>
+      </div>
+
+      <h2>{filtered.length} campsites found</h2>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
         {filtered.map((site) => (
           <div key={site.name} style={{ border: "1px solid #ddd", borderRadius: 12, padding: 18 }}>
             <img
