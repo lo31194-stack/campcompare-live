@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export default function App() {
   const [county, setCounty] = useState("All");
+const [maxPrice, setMaxPrice] = useState(60);
 
   const campsites = [
     {
@@ -24,9 +25,21 @@ export default function App() {
     }
   ];
 
-  const filtered = campsites.filter(
-    (site) => county === "All" || site.county === county
-  );
+ const filtered = campsites.filter(
+  (site) =>
+    (county === "All" || site.county === county) &&
+    site.price <= maxPrice
+    <label style={{ marginLeft: 20 }}>
+  Max Price: £{maxPrice}
+  <input
+    type="range"
+    min="10"
+    max="60"
+    value={maxPrice}
+    onChange={(e) => setMaxPrice(Number(e.target.value))}
+  />
+</label>
+);
 
   return (
     <div style={{ padding: 30, fontFamily: "Arial", maxWidth: 1100, margin: "0 auto" }}>
