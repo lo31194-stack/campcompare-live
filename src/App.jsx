@@ -16,7 +16,7 @@ const campsites = [
       shopDistance: 1.5,
       image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4",
       attractions: ["Land's End", "Minack Theatre", "Sennen Cove"],
-      facilities: ["Dog Friendly", "Showers", "Electric Hookup"]
+      facilities: ["Dog Friendly", "Showers", "Electric Hookup"],
       rating: 4.8,
       reviews: [
         { name: "Sarah", text: "Fantastic location, really close to the beach." },
@@ -31,7 +31,7 @@ const campsites = [
       shopDistance: 2,
       image: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7",
       attractions: ["St Ives", "Tate St Ives", "Carbis Bay"],
-      facilities: ["Dog Friendly", "Campfires Allowed"]
+      facilities: ["Dog Friendly", "Campfires Allowed"],
       rating: 4.6,
       reviews: [
         { name: "Emma", text: "Quirky, friendly and great for a relaxed trip." },
@@ -46,7 +46,7 @@ const campsites = [
       shopDistance: 1.2,
       image: "https://images.unsplash.com/photo-1504851149312-7a075b496cc7",
       attractions: ["Dawlish Warren", "Powderham Castle", "Exmouth Beach"],
-      facilities: ["Swimming Pool", "Showers", "Electric Hookup"]
+      facilities: ["Swimming Pool", "Showers", "Electric Hookup"],
       rating: 4.7,
       reviews: [
         { name: "Kelly", text: "Brilliant for families and lots to do nearby." },
