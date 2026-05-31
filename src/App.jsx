@@ -54,14 +54,13 @@ const campsites = [
       ]
     }
   ];
-const filtered = campsites
-  .filter(
+const filtered = campsites.filter(
     (site) =>
       (county === "All" || site.county === county) &&
       site.price <= maxPrice &&
       site.seaDistance <= maxSea &&
       (facility === "All" || site.facilities.includes(facility))
-  )
+);
   .sort((a, b) => {
     if (sortBy === "Lowest Price") return a.price - b.price;
     if (sortBy === "Highest Rating") return b.rating - a.rating;
