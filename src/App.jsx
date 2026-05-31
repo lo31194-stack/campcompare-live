@@ -61,12 +61,7 @@ const filtered = campsites.filter(
       site.seaDistance <= maxSea &&
       (facility === "All" || site.facilities.includes(facility))
 );
-  .sort((a, b) => {
-    if (sortBy === "Lowest Price") return a.price - b.price;
-    if (sortBy === "Highest Rating") return b.rating - a.rating;
-    if (sortBy === "Closest to Sea") return a.seaDistance - b.seaDistance;
-    return 0;
-  });
+
 
   
   return (
